@@ -1,0 +1,353 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── ALDIOR Design System — OKLCH Tokens (Black & White GenZ) ── */
+
+@layer base {
+  :root {
+    --radius: 0rem;
+
+    /* ── Core palette (stark black & white editorial) ── */
+    --background: 0.04 0 0;
+    --foreground: 0.96 0 0;
+    --card: 0.08 0 0;
+    --card-foreground: 0.96 0 0;
+    --popover: 0.08 0 0;
+    --popover-foreground: 0.96 0 0;
+    --primary: 0.96 0 0;
+    --primary-foreground: 0.04 0 0;
+    --secondary: 0.14 0 0;
+    --secondary-foreground: 0.85 0 0;
+    --muted: 0.1 0 0;
+    --muted-foreground: 0.5 0 0;
+    --accent: 0.14 0 0;
+    --accent-foreground: 0.96 0 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.2 0 0;
+    --input: 0.2 0 0;
+    --ring: 0.9 0 0;
+
+    /* ── Chart tokens (neutral) ── */
+    --chart-1: 0.96 0 0;
+    --chart-2: 0.7 0 0;
+    --chart-3: 0.5 0 0;
+    --chart-4: 0.35 0 0;
+    --chart-5: 0.2 0 0;
+
+    /* ── Sidebar ── */
+    --sidebar: 0.06 0 0;
+    --sidebar-foreground: 0.85 0 0;
+    --sidebar-primary: 0.96 0 0;
+    --sidebar-primary-foreground: 0.04 0 0;
+    --sidebar-accent: 0.12 0 0;
+    --sidebar-accent-foreground: 0.96 0 0;
+    --sidebar-border: 0.2 0 0;
+    --sidebar-ring: 0.9 0 0;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ─── ALDIOR Animations ──────────────────────────────────────────── */
+
+@keyframes hero-zoom {
+  0% {
+    transform: scale(3);
+    opacity: 0;
+    filter: blur(20px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-1%, -1%); }
+  50%  { transform: translate(1%, 1%); }
+  75%  { transform: translate(-1%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes trending-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ─── Animation utility classes ─────────────────────────────────── */
+
+.animate-hero-zoom {
+  animation: hero-zoom 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-up-delay {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+}
+
+.animate-fade-up-delay2 {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease forwards;
+}
+
+/* ─── Marquee ────────────────────────────────────────────────────── */
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* ─── Grain texture overlay ──────────────────────────────────────── */
+
+.grain-overlay {
+  position: relative;
+}
+
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none !important;
+  z-index: 9999;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+}
+
+/* ─── Product card ──────────────────────────────────────────────── */
+
+.product-card {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px oklch(1 0 0 / 6%);
+}
+
+.product-img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.04);
+}
+
+/* ─── Cart drawer ────────────────────────────────────────────────── */
+
+.cart-dialog {
+  background: oklch(0.07 0 0);
+  border-left: 1px solid oklch(0.2 0 0);
+}
+
+.cart-header-border {
+  border-bottom: 1px solid oklch(0.18 0 0);
+}
+
+.cart-footer-border {
+  border-top: 1px solid oklch(0.18 0 0);
+}
+
+.cart-item-border {
+  border-bottom: 1px solid oklch(0.14 0 0);
+}
+
+/* ─── Scrollbar styling ──────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.06 0 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.22 0 0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0 0);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────── */
+
+::selection {
+  background: oklch(0.96 0 0 / 20%);
+  color: oklch(0.96 0 0);
+}
+
+/* ─── Focus ring ─────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 1px solid oklch(0.9 0 0 / 60%);
+  outline-offset: 2px;
+}
+
+/* ─── Announcement bar ───────────────────────────────────────────── */
+
+.announcement-bar {
+  height: 32px;
+  background: oklch(0.02 0 0);
+  border-bottom: 1px solid oklch(0.18 0 0);
+}
+
+.announcement-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  height: 100%;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: oklch(0.75 0 0);
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+.announcement-dot {
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  background: oklch(0.45 0 0);
+  border-radius: 50%;
+}
+
+/* ─── Header utilities ───────────────────────────────────────────── */
+
+.header-base {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.header-default {
+  background: oklch(0.04 0 0 / 92%);
+  border-bottom: 1px solid oklch(0.14 0 0 / 60%);
+}
+
+.header-scrolled {
+  background: oklch(0.04 0 0 / 98%);
+  border-bottom: 1px solid oklch(0.18 0 0);
+}
+
+/* ─── Mobile menu ────────────────────────────────────────────────── */
+
+.mobile-menu-bg {
+  background: oklch(0.05 0 0);
+  border-top: 1px solid oklch(0.16 0 0);
+}
+
+/* ─── Marquee banner ─────────────────────────────────────────────── */
+
+.marquee-banner {
+  background: oklch(0.08 0 0 / 60%);
+  border-top: 1px solid oklch(0.18 0 0);
+  border-bottom: 1px solid oklch(0.18 0 0);
+}
+
+/* ─── Page transitions ───────────────────────────────────────────── */
+
+.page-enter {
+  animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── Size selector ──────────────────────────────────────────────── */
+
+.size-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid oklch(0.25 0 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: oklch(0.6 0 0);
+  background: transparent;
+}
+
+.size-btn:hover {
+  border-color: oklch(0.6 0 0);
+  color: oklch(0.9 0 0);
+}
+
+.size-btn.active {
+  background: oklch(0.96 0 0);
+  border-color: oklch(0.96 0 0);
+  color: oklch(0.04 0 0);
+}
+
+/* ─── Trending slider ────────────────────────────────────────────── */
+
+.trending-container {
+  overflow: hidden;
+}
+
+.trending-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
